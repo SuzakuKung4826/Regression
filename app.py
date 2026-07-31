@@ -22,118 +22,152 @@ st.set_page_config(
 # ==================== Custom CSS ====================
 st.markdown("""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
     html, body, [class*="css"] {
-        font-family: 'Poppins', sans-serif;
+        font-family: 'Inter', sans-serif;
+    }
+
+    /* App background */
+    .stApp {
+        background:
+            radial-gradient(circle at 12% 8%, rgba(99, 102, 241, 0.16), transparent 42%),
+            radial-gradient(circle at 88% 18%, rgba(34, 211, 238, 0.12), transparent 45%),
+            radial-gradient(circle at 50% 100%, rgba(168, 85, 247, 0.10), transparent 50%),
+            #0b0f19;
+    }
+
+    section[data-testid="stSidebar"] {
+        background: #0e1320;
+        border-right: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
     }
 
     /* Hero header */
     .hero {
         text-align: center;
-        padding: 2rem 1.5rem 1.5rem 1.5rem;
-        border-radius: 22px;
-        border: 1px solid rgba(239, 108, 0, 0.28);
+        padding: 2.6rem 1.5rem;
+        border-radius: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
         background:
-            radial-gradient(circle at top left, rgba(255, 179, 0, 0.22), transparent 55%),
-            linear-gradient(135deg, rgba(239, 108, 0, 0.16), rgba(255, 179, 0, 0.10));
-        box-shadow: 0 10px 30px rgba(239, 108, 0, 0.12);
+            radial-gradient(circle at top left, rgba(99, 102, 241, 0.25), transparent 55%),
+            radial-gradient(circle at bottom right, rgba(34, 211, 238, 0.18), transparent 55%),
+            rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(18px);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+        animation: fadeInUp 0.6s ease;
     }
     .hero h1 {
-        font-size: 2.8rem;
+        font-size: 2.9rem;
         font-weight: 800;
-        margin-bottom: 0.3rem;
-        letter-spacing: -0.5px;
-        background: linear-gradient(90deg, #ef6c00, #ffb300);
+        margin-bottom: 0.4rem;
+        letter-spacing: -1px;
+        background: linear-gradient(90deg, #818cf8, #22d3ee 60%, #a78bfa);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
     }
     .hero p {
-        opacity: 0.82;
-        font-size: 1.1rem;
+        opacity: 0.72;
+        font-size: 1.08rem;
         font-weight: 400;
         margin: 0;
+        color: #e7e9f5;
     }
     .hero .badge {
         display: inline-block;
-        margin-top: 0.8rem;
-        padding: 0.35rem 1rem;
+        margin-top: 1rem;
+        padding: 0.4rem 1.1rem;
         border-radius: 999px;
-        background: linear-gradient(90deg, #ef6c00, #e65100);
+        background: linear-gradient(90deg, #6366f1, #8b5cf6);
         color: white;
         font-size: 0.85rem;
         font-weight: 600;
+        box-shadow: 0 6px 18px rgba(99, 102, 241, 0.35);
     }
 
     /* Section titles */
     .section-title {
-        font-size: 1.15rem;
+        font-size: 1.1rem;
         font-weight: 700;
-        margin-bottom: 0.6rem;
+        margin-bottom: 0.7rem;
         display: flex;
         align-items: center;
         gap: 0.5rem;
+        color: #e7e9f5;
     }
 
     /* Gradient divider */
     .divider {
-        height: 3px;
+        height: 1px;
         border: none;
-        border-radius: 3px;
-        margin: 1.5rem 0;
-        background: linear-gradient(90deg, transparent, #ef6c00, #ffb300, transparent);
+        margin: 1.8rem 0;
+        background: linear-gradient(90deg, transparent, rgba(129, 140, 248, 0.6), rgba(34, 211, 238, 0.6), transparent);
     }
 
     /* Input group card */
     .input-card {
-        border-radius: 16px;
-        padding: 1.4rem 1.6rem 0.6rem 1.6rem;
-        border: 1px solid rgba(239, 108, 0, 0.25);
-        background: rgba(255, 179, 0, 0.04);
+        border-radius: 18px;
+        padding: 1.5rem 1.6rem 0.7rem 1.6rem;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.035);
+        backdrop-filter: blur(14px);
         margin-bottom: 1rem;
+        transition: border-color 0.25s ease;
+    }
+    .input-card:hover {
+        border-color: rgba(129, 140, 248, 0.35);
     }
 
     /* Metric cards */
     .metric-card {
-        padding: 1.4rem 1rem;
-        border-radius: 14px;
-        border: 1px solid rgba(239, 108, 0, 0.22);
-        background: rgba(255, 179, 0, 0.05);
+        padding: 1.5rem 1rem;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.035);
+        backdrop-filter: blur(14px);
         text-align: center;
-        transition: transform 0.25s ease, box-shadow 0.25s ease;
+        transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
         height: 100%;
     }
     .metric-card:hover {
         transform: translateY(-6px);
-        box-shadow: 0 10px 25px rgba(239, 108, 0, 0.18);
+        border-color: rgba(129, 140, 248, 0.4);
+        box-shadow: 0 14px 30px rgba(99, 102, 241, 0.2);
     }
     .metric-icon {
         font-size: 1.6rem;
         margin-bottom: 0.3rem;
     }
     .metric-label {
-        opacity: 0.7;
-        font-size: 0.85rem;
+        opacity: 0.6;
+        font-size: 0.82rem;
         font-weight: 600;
         text-transform: uppercase;
-        letter-spacing: 0.5px;
+        letter-spacing: 0.6px;
         margin: 0;
+        color: #e7e9f5;
     }
     .metric-value {
         font-size: 1.6rem;
         font-weight: 800;
         margin: 0.3rem 0 0 0;
+        color: #ffffff;
     }
 
     /* Result card */
     .result-card {
-        background: linear-gradient(135deg, #ef6c00 0%, #ffb300 100%);
-        padding: 2.2rem 1.5rem;
-        border-radius: 20px;
+        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 55%, #22d3ee 120%);
+        padding: 2.4rem 1.5rem;
+        border-radius: 22px;
         color: white;
         text-align: center;
-        box-shadow: 0 12px 35px rgba(239, 108, 0, 0.3);
+        box-shadow: 0 20px 45px rgba(99, 102, 241, 0.35);
+        animation: fadeInUp 0.5s ease;
     }
     .result-card h2 {
         margin: 0;
@@ -145,7 +179,7 @@ st.markdown("""
         font-size: 3.2rem;
         font-weight: 800;
         margin: 0.6rem 0;
-        text-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+        text-shadow: 2px 2px 12px rgba(0,0,0,0.25);
     }
     .result-card p {
         font-size: 1.05rem;
@@ -155,19 +189,34 @@ st.markdown("""
 
     /* Button styling */
     .stButton > button {
-        background: linear-gradient(90deg, #ef6c00, #e65100);
+        background: linear-gradient(90deg, #6366f1, #8b5cf6);
         color: white;
         border: none;
-        padding: 0.7rem 2rem;
+        padding: 0.75rem 2rem;
         border-radius: 999px;
         font-weight: 700;
         font-size: 1.05rem;
         letter-spacing: 0.3px;
         transition: all 0.25s ease;
+        box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
     }
     .stButton > button:hover {
         transform: translateY(-2px) scale(1.02);
-        box-shadow: 0 10px 25px rgba(239, 108, 0, 0.3);
+        box-shadow: 0 12px 28px rgba(99, 102, 241, 0.45);
+    }
+
+    /* Misc widget polish */
+    div[data-testid="stExpander"] {
+        border-radius: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.03);
+    }
+    div[data-testid="stDataFrame"] {
+        border-radius: 12px;
+        overflow: hidden;
+    }
+    iframe {
+        border-radius: 14px;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -337,15 +386,15 @@ if predict_button:
             y='Feature',
             orientation='h',
             color='Importance',
-            color_continuous_scale=['#e65100', '#ef6c00', '#ffb300'],
+            color_continuous_scale=['#6366f1', '#8b5cf6', '#22d3ee'],
             title='🔍 ความสำคัญของ Features ในการทำนาย'
         )
         fig.update_layout(
             height=400,
             plot_bgcolor='rgba(0,0,0,0)',
             paper_bgcolor='rgba(0,0,0,0)',
-            font=dict(size=12, family='Poppins, sans-serif', color='#2c3e50'),
-            title_font=dict(size=16, color='#2c3e50'),
+            font=dict(size=12, family='Inter, sans-serif', color='#e7e9f5'),
+            title_font=dict(size=16, color='#e7e9f5'),
             margin=dict(l=10, r=10, t=60, b=10),
             coloraxis_showscale=False
         )
@@ -362,5 +411,4 @@ if predict_button:
 
 # ==================== Footer ====================
 st.markdown("---")
-st.markdown("<p style='text-align:center;color:#5a6b8c;margin-top:30px;'>Made with Streamlit · Machine Learning Projects</p>", unsafe_allow_html=True)
-st.markdown("<p style='text-align:center;color:#5a6b8c;margin-top:4px;'>Develop By tpp72</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align:center;color:#8a90a8;margin-top:30px;'>Made with Streamlit · Machine Learning Projects</p>", unsafe_allow_html=True)
