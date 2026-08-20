@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-California Housing Price Predictor
+Automobile Price Predictor
 Streamlit Web Application
 """
 
@@ -13,8 +13,8 @@ import plotly.graph_objects as go
 
 # ==================== Page Configuration ====================
 st.set_page_config(
-    page_title="🏠 California Housing Predictor",
-    page_icon="🏠",
+    page_title="🚗 Automobile Price Predictor",
+    page_icon="🚗",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -238,34 +238,34 @@ model, scaler, feature_names = load_model()
 
 # ==================== Sidebar ====================
 with st.sidebar:
-    st.markdown("## 🏠 California Housing")
+    st.markdown("## 🚗 Automobile")
     st.markdown("### Price Predictor")
     st.markdown("---")
     st.markdown("""
     **โมเดล:** Random Forest Regressor
-    **Dataset:** California Housing
-    **Accuracy:** R² = 0.81
+    **Dataset:** Automobile (1985 Auto Imports)
+    **Accuracy:** R² = 0.94
     """)
 
     # Feature descriptions
     with st.expander("📖 คำอธิบาย Features"):
         st.markdown("""
-        - **MedInc**: รายได้เฉลี่ย (×$10,000)
-        - **HouseAge**: อายุบ้านเฉลี่ย
-        - **AveRooms**: จำนวนห้องเฉลี่ย
-        - **AveBedrms**: จำนวนห้องนอนเฉลี่ย
-        - **Population**: จำนวนประชากร
-        - **AveOccup**: จำนวนคนต่อครัวเรือน
-        - **Latitude**: ละติจูด
-        - **Longitude**: ลองจิจูด
+        - **engine-size**: ขนาดเครื่องยนต์ (ลูกบาศก์นิ้ว)
+        - **horsepower**: กำลังเครื่องยนต์ (แรงม้า)
+        - **curb-weight**: น้ำหนักตัวรถเปล่า (ปอนด์)
+        - **city-mpg**: อัตราสิ้นเปลืองในเมือง (ไมล์/แกลลอน)
+        - **highway-mpg**: อัตราสิ้นเปลืองทางหลวง (ไมล์/แกลลอน)
+        - **wheel-base**: ระยะฐานล้อ (นิ้ว)
+        - **length**: ความยาวรถ (นิ้ว)
+        - **width**: ความกว้างรถ (นิ้ว)
         """)
 
 # ==================== Main Content ====================
 st.markdown("""
 <div class='hero'>
-    <h1>🏠 California Housing Price Predictor</h1>
-    <p>ทำนายราคาบ้านในแคลิฟอร์เนียด้วย Machine Learning</p>
-    <span class='badge'>🌲 Random Forest · R² = 0.81</span>
+    <h1>🚗 Automobile Price Predictor</h1>
+    <p>ทำนายราคารถยนต์ด้วย Machine Learning</p>
+    <span class='badge'>🌲 Random Forest · R² = 0.94</span>
 </div>
 """, unsafe_allow_html=True)
 
@@ -276,36 +276,35 @@ col1, col2 = st.columns(2)
 
 with col1:
     st.markdown("<div class='input-card'>", unsafe_allow_html=True)
-    st.markdown("<div class='section-title'>📍 Location & Demographics</div>", unsafe_allow_html=True)
-    latitude = st.slider("🌐 Latitude", 32.0, 42.0, 35.0, 0.01)
-    longitude = st.slider("🌐 Longitude", -124.0, -114.0, -119.0, 0.01)
-    population = st.slider("👥 Population", 1.0, 30000.0, 1500.0, 10.0)
-    ave_occup = st.slider("👨‍👩‍👧‍👦 Avg. Occupancy", 1.0, 10.0, 3.0, 0.1)
-    st.map(pd.DataFrame({'lat': [latitude], 'lon': [longitude]}), zoom=4, height=180)
+    st.markdown("<div class='section-title'>⚙️ Engine & Performance</div>", unsafe_allow_html=True)
+    engine_size = st.slider("🔧 Engine Size (cu-in)", 60.0, 330.0, 130.0, 1.0)
+    horsepower = st.slider("🐎 Horsepower", 45.0, 265.0, 105.0, 1.0)
+    city_mpg = st.slider("⛽ City MPG", 12.0, 50.0, 25.0, 1.0)
+    highway_mpg = st.slider("🛣️ Highway MPG", 15.0, 55.0, 31.0, 1.0)
     st.markdown("</div>", unsafe_allow_html=True)
 
 with col2:
     st.markdown("<div class='input-card'>", unsafe_allow_html=True)
-    st.markdown("<div class='section-title'>🏡 House Characteristics</div>", unsafe_allow_html=True)
-    med_inc = st.slider("💰 Median Income (×$10k)", 0.5, 15.0, 5.0, 0.1)
-    house_age = st.slider("🏚️ House Age (years)", 1.0, 52.0, 20.0, 1.0)
-    ave_rooms = st.slider("🚪 Avg. Rooms", 1.0, 15.0, 5.0, 0.1)
-    ave_bedrms = st.slider("🛏️ Avg. Bedrooms", 0.5, 5.0, 1.1, 0.1)
+    st.markdown("<div class='section-title'>📐 Body & Dimensions</div>", unsafe_allow_html=True)
+    curb_weight = st.slider("⚖️ Curb Weight (lbs)", 1480.0, 4100.0, 2560.0, 10.0)
+    wheel_base = st.slider("🛞 Wheel Base (in)", 86.0, 121.0, 99.0, 0.1)
+    length = st.slider("📏 Length (in)", 140.0, 210.0, 174.0, 0.1)
+    width = st.slider("↔️ Width (in)", 60.0, 73.0, 66.0, 0.1)
     st.markdown("</div>", unsafe_allow_html=True)
 
 # ==================== Prediction Button ====================
 col_btn1, col_btn2, col_btn3 = st.columns([1, 2, 1])
 
 with col_btn2:
-    predict_button = st.button("🔮 ทำนายราคาบ้าน", use_container_width=True)
+    predict_button = st.button("🔮 ทำนายราคารถยนต์", use_container_width=True)
 
 # ==================== Prediction Logic ====================
 if predict_button:
     with st.spinner("🔮 กำลังทำนาย..."):
-        # สร้าง input array
+        # สร้าง input array (ต้องเรียงลำดับตาม feature_names)
         input_data = np.array([[
-            med_inc, house_age, ave_rooms, ave_bedrms,
-            population, ave_occup, latitude, longitude
+            engine_size, horsepower, curb_weight, city_mpg,
+            highway_mpg, wheel_base, length, width
         ]])
 
         # Scale ข้อมูล
@@ -313,15 +312,14 @@ if predict_button:
 
         # ทำนาย
         prediction = model.predict(input_scaled)[0]
-        prediction_usd = prediction * 100000
 
     # แสดงผลลัพธ์
     st.markdown("<hr class='divider'>", unsafe_allow_html=True)
     st.markdown(f"""
     <div class='result-card'>
-        <h2>💰 ราคาบ้านที่ทำนายได้</h2>
-        <div class='result-value'>${prediction_usd:,.0f}</div>
-        <p>หรือประมาณ {prediction:,.2f} × $100,000</p>
+        <h2>💰 ราคารถยนต์ที่ทำนายได้</h2>
+        <div class='result-value'>${prediction:,.0f}</div>
+        <p>ประเมินจากคุณลักษณะของรถที่กรอก</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -336,32 +334,32 @@ if predict_button:
         <div class='metric-card'>
             <div class='metric-icon'>💵</div>
             <p class='metric-label'>Predicted Price</p>
-            <p class='metric-value'>${prediction_usd:,.0f}</p>
+            <p class='metric-value'>${prediction:,.0f}</p>
         </div>
         """, unsafe_allow_html=True)
 
     with col_m2:
-        price_per_room = prediction_usd / ave_rooms if ave_rooms > 0 else 0
+        price_per_hp = prediction / horsepower if horsepower > 0 else 0
         st.markdown(f"""
         <div class='metric-card'>
-            <div class='metric-icon'>🚪</div>
-            <p class='metric-label'>Price / Room</p>
-            <p class='metric-value'>${price_per_room:,.0f}</p>
+            <div class='metric-icon'>🐎</div>
+            <p class='metric-label'>Price / Horsepower</p>
+            <p class='metric-value'>${price_per_hp:,.0f}</p>
         </div>
         """, unsafe_allow_html=True)
 
     with col_m3:
-        price_per_person = prediction_usd / population if population > 0 else 0
+        avg_mpg = (city_mpg + highway_mpg) / 2
         st.markdown(f"""
         <div class='metric-card'>
-            <div class='metric-icon'>👥</div>
-            <p class='metric-label'>Price / Person</p>
-            <p class='metric-value'>${price_per_person:,.0f}</p>
+            <div class='metric-icon'>⛽</div>
+            <p class='metric-label'>Avg. MPG</p>
+            <p class='metric-value'>{avg_mpg:,.1f}</p>
         </div>
         """, unsafe_allow_html=True)
 
     with col_m4:
-        confidence = 81  # R² score
+        confidence = 94  # R² score
         st.markdown(f"""
         <div class='metric-card'>
             <div class='metric-icon'>🎯</div>
@@ -411,4 +409,4 @@ if predict_button:
 
 # ==================== Footer ====================
 st.markdown("---")
-st.markdown("<p style='text-align:center;color:#8a90a8;margin-top:30px;'>Made with Streamlit · Machine Learning Projects</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align:center;color:#8a90a8;margin-top:30px;'>Made with Streamlit · Machine Learning Projects (Automobile Dataset)</p>", unsafe_allow_html=True)
