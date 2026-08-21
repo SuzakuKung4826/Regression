@@ -1,0 +1,26 @@
+[
+  {
+    "model": "Linear Regression",
+    "r2": 0.7826,
+    "mae": 3545.6,
+    "rmse": 4997.9
+  },
+  {
+    "model": "Decision Tree",
+    "r2": 0.9287,
+    "mae": 1953.3,
+    "rmse": 2861.8
+  },
+  {
+    "model": "Random Forest",
+    "r2": 0.9405,
+    "mae": 1715.4,
+    "rmse": 2615.4
+  },
+  {
+    "model": "Gradient Boosting",
+    "r2": 0.9453,
+    "mae": 1427.7,
+    "rmse": 2507.8
+  }
+]
